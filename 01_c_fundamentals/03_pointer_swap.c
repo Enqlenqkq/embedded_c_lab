@@ -16,23 +16,47 @@
 
 #include <stdio.h>
 
-void swap(int *a, int *b) {
+void swap(int *a, int *b)
+{
+    if (a == NULL || b == NULL)
+        return;
     // TODO 1: 임시 변수 선언
+    int tmp;
     // TODO 2: 역참조를 이용해 두 정수의 값 교환
+    tmp = *b;
+    *b = *a;
+    *a = tmp;
 }
 
 // TODO 3 (추가 미션): add_ten 함수 구현
+void add_ten(int *value)
+{
+    if (value == NULL)
+        return;
+    *value += 10;
+}
 
-int main(void) {
+int main(void)
+{
     int x = 10;
     int y = 20;
 
     printf("before: x=%d, y=%d\n", x, y);
 
     // TODO 4: swap에 x와 y의 주소 전달
+    swap(&x, &y);
 
     printf("after:  x=%d, y=%d\n", x, y);
 
     // TODO 5 (추가 미션): add_ten 호출 및 결과 출력
+    add_ten(&x);
+    printf("x = %d\n", x);
+
     return 0;
 }
+
+/*
+C 함수는 인자를 어떤 방식으로 전달하는가? -> 값에 의한 전달. Call by Value
+포인터 `a`와 `*a`의 의미는? -> 포인터 a는 메모리 주소이고, 역참조 연산자를 붙인 포인터 *a는 해당 메모리의 값을 뜻한다.
+함수에 변수 값만 전달하면 왜 원본을 바꾸기 어려운가? -> C에서 함수에 변수값만 전달하는 행위는 원본 데이터 접근이 아닌 복사 후 사용하기 때문이다.
+*/
